@@ -1,5 +1,6 @@
 package com.khanna.grpc.client;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
@@ -7,17 +8,19 @@ import org.junit.jupiter.api.Test;
 import com.bank.models.Balance;
 import com.bank.models.BalanceCheckRequest;
 import com.bank.models.BankServiceGrpc;
+import com.bank.models.DepositRequest;
 import com.bank.models.WithdrawRequest;
 import com.google.common.util.concurrent.Uninterruptibles;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
+import io.grpc.stub.StreamObserver;
 
 //@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BankClientTest {
 
 	private BankServiceGrpc.BankServiceBlockingStub blockingStub;
-	
+
 	private BankServiceGrpc.BankServiceStub bankServiceStub;
 
 	@Test
@@ -30,29 +33,59 @@ public class BankClientTest {
 		Balance balance = this.blockingStub.getBalance(request);
 		System.out.println("Received : " + balance.getAmount());
 	}
-	
+
 	@Test
 	public void withdrawTest() {
 		ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565).usePlaintext().build();
 
 		this.blockingStub = BankServiceGrpc.newBlockingStub(managedChannel);
-		
+
 		WithdrawRequest request = WithdrawRequest.newBuilder().setAccountNumber(7).setAmount(20).build();
-		this.blockingStub.withdraw(request).forEachRemaining(money-> {
-			System.out.println("Received : "+money.getValue());
-		});;
+		this.blockingStub.withdraw(request).forEachRemaining(money -> {
+			System.out.println("Received : " + money.getValue());
+		});
+		;
 	}
-	
+
 	@Test
 	public void withdrawTestAsync() {
 		ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565).usePlaintext().build();
 
 		WithdrawRequest request = WithdrawRequest.newBuilder().setAccountNumber(10).setAmount(50).build();
 		this.bankServiceStub = BankServiceGrpc.newStub(managedChannel);
-		
+
 		this.bankServiceStub.withdraw(request, new MoneyStreamingResponse());
-		
+
 		Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
+	}
+
+	@Test
+	// Streaming request from client cannot be blocking, use async
+	public void cashStreamingRequestTest() {
+
+		CountDownLatch latch = new CountDownLatch(1);
+		ManagedChannel managedChannel = ManagedChannelBuilder.forAddress("localhost", 6565).usePlaintext().build();
+
+		this.bankServiceStub = BankServiceGrpc.newStub(managedChannel);
+		StreamObserver<DepositRequest> depositRequestStreamObserver = this.bankServiceStub
+				.deposit(new BalanceStreamObserver(latch));
+		// BalanceStreamObserver is a client handler for the response. It handles the
+		// response. since the response is streaming and is async, we can add a latch
+
+//		depositRequestStreamObserver is an object which is sending all the requests to the server. It accepts the deposit request, so we can call onNext through which we will send the streaming request
+		// This request is interpreted on the server in the class CashStreamingRequest
+		for (int i = 0; i < 10; i++) {
+			DepositRequest depositRequest = DepositRequest.newBuilder().setAccountNumber(8).setAmount(10).build();
+			depositRequestStreamObserver.onNext(depositRequest);
+		}
+		
+		depositRequestStreamObserver.onCompleted();
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

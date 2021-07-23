@@ -5,22 +5,23 @@ package com.bank.models;
 
 /**
  * <pre>
- * Unary
+ * Client streamng
  * </pre>
  *
- * Protobuf type {@code BalanceCheckRequest}
+ * Protobuf type {@code DepositRequest}
  */
-public  final class BalanceCheckRequest extends
+public  final class DepositRequest extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:BalanceCheckRequest)
-    BalanceCheckRequestOrBuilder {
+    // @@protoc_insertion_point(message_implements:DepositRequest)
+    DepositRequestOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use BalanceCheckRequest.newBuilder() to construct.
-  private BalanceCheckRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+  // Use DepositRequest.newBuilder() to construct.
+  private DepositRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
-  private BalanceCheckRequest() {
+  private DepositRequest() {
     accountNumber_ = 0;
+    amount_ = 0;
   }
 
   @java.lang.Override
@@ -28,7 +29,7 @@ private static final long serialVersionUID = 0L;
   getUnknownFields() {
     return this.unknownFields;
   }
-  private BalanceCheckRequest(
+  private DepositRequest(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
@@ -52,6 +53,11 @@ private static final long serialVersionUID = 0L;
             accountNumber_ = input.readInt32();
             break;
           }
+          case 16: {
+
+            amount_ = input.readInt32();
+            break;
+          }
           default: {
             if (!parseUnknownFieldProto3(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -73,15 +79,15 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return com.bank.models.BankServiceOuterClass.internal_static_BalanceCheckRequest_descriptor;
+    return com.bank.models.BankServiceOuterClass.internal_static_DepositRequest_descriptor;
   }
 
   @java.lang.Override
   protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return com.bank.models.BankServiceOuterClass.internal_static_BalanceCheckRequest_fieldAccessorTable
+    return com.bank.models.BankServiceOuterClass.internal_static_DepositRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
-            com.bank.models.BalanceCheckRequest.class, com.bank.models.BalanceCheckRequest.Builder.class);
+            com.bank.models.DepositRequest.class, com.bank.models.DepositRequest.Builder.class);
   }
 
   public static final int ACCOUNT_NUMBER_FIELD_NUMBER = 1;
@@ -91,6 +97,15 @@ private static final long serialVersionUID = 0L;
    */
   public int getAccountNumber() {
     return accountNumber_;
+  }
+
+  public static final int AMOUNT_FIELD_NUMBER = 2;
+  private int amount_;
+  /**
+   * <code>int32 amount = 2;</code>
+   */
+  public int getAmount() {
+    return amount_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -110,6 +125,9 @@ private static final long serialVersionUID = 0L;
     if (accountNumber_ != 0) {
       output.writeInt32(1, accountNumber_);
     }
+    if (amount_ != 0) {
+      output.writeInt32(2, amount_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -123,6 +141,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(1, accountNumber_);
     }
+    if (amount_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(2, amount_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -133,14 +155,16 @@ private static final long serialVersionUID = 0L;
     if (obj == this) {
      return true;
     }
-    if (!(obj instanceof com.bank.models.BalanceCheckRequest)) {
+    if (!(obj instanceof com.bank.models.DepositRequest)) {
       return super.equals(obj);
     }
-    com.bank.models.BalanceCheckRequest other = (com.bank.models.BalanceCheckRequest) obj;
+    com.bank.models.DepositRequest other = (com.bank.models.DepositRequest) obj;
 
     boolean result = true;
     result = result && (getAccountNumber()
         == other.getAccountNumber());
+    result = result && (getAmount()
+        == other.getAmount());
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -154,74 +178,76 @@ private static final long serialVersionUID = 0L;
     hash = (19 * hash) + getDescriptor().hashCode();
     hash = (37 * hash) + ACCOUNT_NUMBER_FIELD_NUMBER;
     hash = (53 * hash) + getAccountNumber();
+    hash = (37 * hash) + AMOUNT_FIELD_NUMBER;
+    hash = (53 * hash) + getAmount();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
   }
 
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       java.nio.ByteBuffer data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       java.nio.ByteBuffer data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       com.google.protobuf.ByteString data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       com.google.protobuf.ByteString data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(byte[] data)
+  public static com.bank.models.DepositRequest parseFrom(byte[] data)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       byte[] data,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws com.google.protobuf.InvalidProtocolBufferException {
     return PARSER.parseFrom(data, extensionRegistry);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(java.io.InputStream input)
+  public static com.bank.models.DepositRequest parseFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.bank.models.BalanceCheckRequest parseDelimitedFrom(java.io.InputStream input)
+  public static com.bank.models.DepositRequest parseDelimitedFrom(java.io.InputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input);
   }
-  public static com.bank.models.BalanceCheckRequest parseDelimitedFrom(
+  public static com.bank.models.DepositRequest parseDelimitedFrom(
       java.io.InputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       com.google.protobuf.CodedInputStream input)
       throws java.io.IOException {
     return com.google.protobuf.GeneratedMessageV3
         .parseWithIOException(PARSER, input);
   }
-  public static com.bank.models.BalanceCheckRequest parseFrom(
+  public static com.bank.models.DepositRequest parseFrom(
       com.google.protobuf.CodedInputStream input,
       com.google.protobuf.ExtensionRegistryLite extensionRegistry)
       throws java.io.IOException {
@@ -234,7 +260,7 @@ private static final long serialVersionUID = 0L;
   public static Builder newBuilder() {
     return DEFAULT_INSTANCE.toBuilder();
   }
-  public static Builder newBuilder(com.bank.models.BalanceCheckRequest prototype) {
+  public static Builder newBuilder(com.bank.models.DepositRequest prototype) {
     return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
   }
   @java.lang.Override
@@ -251,29 +277,29 @@ private static final long serialVersionUID = 0L;
   }
   /**
    * <pre>
-   * Unary
+   * Client streamng
    * </pre>
    *
-   * Protobuf type {@code BalanceCheckRequest}
+   * Protobuf type {@code DepositRequest}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:BalanceCheckRequest)
-      com.bank.models.BalanceCheckRequestOrBuilder {
+      // @@protoc_insertion_point(builder_implements:DepositRequest)
+      com.bank.models.DepositRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return com.bank.models.BankServiceOuterClass.internal_static_BalanceCheckRequest_descriptor;
+      return com.bank.models.BankServiceOuterClass.internal_static_DepositRequest_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return com.bank.models.BankServiceOuterClass.internal_static_BalanceCheckRequest_fieldAccessorTable
+      return com.bank.models.BankServiceOuterClass.internal_static_DepositRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              com.bank.models.BalanceCheckRequest.class, com.bank.models.BalanceCheckRequest.Builder.class);
+              com.bank.models.DepositRequest.class, com.bank.models.DepositRequest.Builder.class);
     }
 
-    // Construct using com.bank.models.BalanceCheckRequest.newBuilder()
+    // Construct using com.bank.models.DepositRequest.newBuilder()
     private Builder() {
       maybeForceBuilderInitialization();
     }
@@ -293,23 +319,25 @@ private static final long serialVersionUID = 0L;
       super.clear();
       accountNumber_ = 0;
 
+      amount_ = 0;
+
       return this;
     }
 
     @java.lang.Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return com.bank.models.BankServiceOuterClass.internal_static_BalanceCheckRequest_descriptor;
+      return com.bank.models.BankServiceOuterClass.internal_static_DepositRequest_descriptor;
     }
 
     @java.lang.Override
-    public com.bank.models.BalanceCheckRequest getDefaultInstanceForType() {
-      return com.bank.models.BalanceCheckRequest.getDefaultInstance();
+    public com.bank.models.DepositRequest getDefaultInstanceForType() {
+      return com.bank.models.DepositRequest.getDefaultInstance();
     }
 
     @java.lang.Override
-    public com.bank.models.BalanceCheckRequest build() {
-      com.bank.models.BalanceCheckRequest result = buildPartial();
+    public com.bank.models.DepositRequest build() {
+      com.bank.models.DepositRequest result = buildPartial();
       if (!result.isInitialized()) {
         throw newUninitializedMessageException(result);
       }
@@ -317,9 +345,10 @@ private static final long serialVersionUID = 0L;
     }
 
     @java.lang.Override
-    public com.bank.models.BalanceCheckRequest buildPartial() {
-      com.bank.models.BalanceCheckRequest result = new com.bank.models.BalanceCheckRequest(this);
+    public com.bank.models.DepositRequest buildPartial() {
+      com.bank.models.DepositRequest result = new com.bank.models.DepositRequest(this);
       result.accountNumber_ = accountNumber_;
+      result.amount_ = amount_;
       onBuilt();
       return result;
     }
@@ -358,18 +387,21 @@ private static final long serialVersionUID = 0L;
     }
     @java.lang.Override
     public Builder mergeFrom(com.google.protobuf.Message other) {
-      if (other instanceof com.bank.models.BalanceCheckRequest) {
-        return mergeFrom((com.bank.models.BalanceCheckRequest)other);
+      if (other instanceof com.bank.models.DepositRequest) {
+        return mergeFrom((com.bank.models.DepositRequest)other);
       } else {
         super.mergeFrom(other);
         return this;
       }
     }
 
-    public Builder mergeFrom(com.bank.models.BalanceCheckRequest other) {
-      if (other == com.bank.models.BalanceCheckRequest.getDefaultInstance()) return this;
+    public Builder mergeFrom(com.bank.models.DepositRequest other) {
+      if (other == com.bank.models.DepositRequest.getDefaultInstance()) return this;
       if (other.getAccountNumber() != 0) {
         setAccountNumber(other.getAccountNumber());
+      }
+      if (other.getAmount() != 0) {
+        setAmount(other.getAmount());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -386,11 +418,11 @@ private static final long serialVersionUID = 0L;
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      com.bank.models.BalanceCheckRequest parsedMessage = null;
+      com.bank.models.DepositRequest parsedMessage = null;
       try {
         parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        parsedMessage = (com.bank.models.BalanceCheckRequest) e.getUnfinishedMessage();
+        parsedMessage = (com.bank.models.DepositRequest) e.getUnfinishedMessage();
         throw e.unwrapIOException();
       } finally {
         if (parsedMessage != null) {
@@ -425,6 +457,32 @@ private static final long serialVersionUID = 0L;
       onChanged();
       return this;
     }
+
+    private int amount_ ;
+    /**
+     * <code>int32 amount = 2;</code>
+     */
+    public int getAmount() {
+      return amount_;
+    }
+    /**
+     * <code>int32 amount = 2;</code>
+     */
+    public Builder setAmount(int value) {
+      
+      amount_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 amount = 2;</code>
+     */
+    public Builder clearAmount() {
+      
+      amount_ = 0;
+      onChanged();
+      return this;
+    }
     @java.lang.Override
     public final Builder setUnknownFields(
         final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -438,41 +496,41 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:BalanceCheckRequest)
+    // @@protoc_insertion_point(builder_scope:DepositRequest)
   }
 
-  // @@protoc_insertion_point(class_scope:BalanceCheckRequest)
-  private static final com.bank.models.BalanceCheckRequest DEFAULT_INSTANCE;
+  // @@protoc_insertion_point(class_scope:DepositRequest)
+  private static final com.bank.models.DepositRequest DEFAULT_INSTANCE;
   static {
-    DEFAULT_INSTANCE = new com.bank.models.BalanceCheckRequest();
+    DEFAULT_INSTANCE = new com.bank.models.DepositRequest();
   }
 
-  public static com.bank.models.BalanceCheckRequest getDefaultInstance() {
+  public static com.bank.models.DepositRequest getDefaultInstance() {
     return DEFAULT_INSTANCE;
   }
 
-  private static final com.google.protobuf.Parser<BalanceCheckRequest>
-      PARSER = new com.google.protobuf.AbstractParser<BalanceCheckRequest>() {
+  private static final com.google.protobuf.Parser<DepositRequest>
+      PARSER = new com.google.protobuf.AbstractParser<DepositRequest>() {
     @java.lang.Override
-    public BalanceCheckRequest parsePartialFrom(
+    public DepositRequest parsePartialFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      return new BalanceCheckRequest(input, extensionRegistry);
+      return new DepositRequest(input, extensionRegistry);
     }
   };
 
-  public static com.google.protobuf.Parser<BalanceCheckRequest> parser() {
+  public static com.google.protobuf.Parser<DepositRequest> parser() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.google.protobuf.Parser<BalanceCheckRequest> getParserForType() {
+  public com.google.protobuf.Parser<DepositRequest> getParserForType() {
     return PARSER;
   }
 
   @java.lang.Override
-  public com.bank.models.BalanceCheckRequest getDefaultInstanceForType() {
+  public com.bank.models.DepositRequest getDefaultInstanceForType() {
     return DEFAULT_INSTANCE;
   }
 

@@ -3,6 +3,7 @@ package com.khanna.grpc.server;
 import com.bank.models.Balance;
 import com.bank.models.BalanceCheckRequest;
 import com.bank.models.BankServiceGrpc.BankServiceImplBase;
+import com.bank.models.DepositRequest;
 import com.bank.models.Money;
 import com.bank.models.WithdrawRequest;
 
@@ -28,9 +29,10 @@ public class BankService extends BankServiceImplBase {
 		int accountNumber = request.getAccountNumber();
 		int amount = request.getAmount(); // 10,20,30 bcoz amount can be deducted in sets of 10 by the accountAA
 		int balance = AccountDatabase.getBalance(accountNumber);
-		
-		if(balance < amount) {
-			Status status = Status.FAILED_PRECONDITION.withDescription("Not enough money in account. You have only : "+ balance);
+
+		if (balance < amount) {
+			Status status = Status.FAILED_PRECONDITION
+					.withDescription("Not enough money in account. You have only : " + balance);
 			responseObserver.onError(status.asRuntimeException());
 			return;
 		}
@@ -48,6 +50,11 @@ public class BankService extends BankServiceImplBase {
 		}
 
 		responseObserver.onCompleted();
+	}
+
+	@Override
+	public StreamObserver<DepositRequest> deposit(StreamObserver<Balance> responseObserver) {
+		return new CashStreamingRequest(responseObserver);
 	}
 
 }

@@ -4,6 +4,10 @@
 package com.bank.models;
 
 /**
+ * <pre>
+ *server streaming
+ * </pre>
+ *
  * Protobuf type {@code WithdrawRequest}
  */
 public  final class WithdrawRequest extends
@@ -272,6 +276,10 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
+   * <pre>
+   *server streaming
+   * </pre>
+   *
    * Protobuf type {@code WithdrawRequest}
    */
   public static final class Builder extends
